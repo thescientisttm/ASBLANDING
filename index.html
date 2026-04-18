@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Asia School of Business</title>
+  <style>
+    html { scroll-behavior: smooth; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --maroon: #b41e45; --maroon-dark: #8f1636;
+      --maroon-glow: rgba(180,30,69,.4);
+      --dark-slate: #334f57; --dark-gray: #545759;
+      --light-gray: #c9c8c7; --blue: #2865a2; --navy: #213f7c;
+      --teal: #006b67; --yellow: #edc51b; --orange: #ed7700;
+      --white: #ffffff; --off-white: #f4f4f4;
+      --font: Arial, 'Helvetica Neue', sans-serif;
+    }
+    body { font-family: var(--font); color: #1a1a1a; background: var(--white); overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── KEYFRAMES ── */
+    @keyframes floatA {
+      0%,100% { transform: translateY(0) rotate(0deg); }
+      33%  { transform: translateY(-18px) rotate(4deg); }
+      66%  { transform: translateY(-8px) rotate(-2deg); }
+    }
+    @keyframes floatB {
+      0%,100% { transform: translateY(0) scale(1); }
+      50%  { transform: translateY(-24px) scale(1.04); }
+    }
+    @keyframes floatC {
+      0%,100% { transform: translateY(0) translateX(0); }
+      25%  { transform: translateY(-12px) translateX(10px); }
+      75%  { transform: translateY(-20px) translateX(-8px); }
+    }
+    @keyframes spinSlow {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+    @keyframes morph {
+      0%,100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+      50%      { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(36px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes cardIn {
+      from { opacity: 0; transform: perspective(1000px) translateX(50px) rotateY(-10deg); }
+      to   { opacity: 1; transform: perspective(1000px) translateX(0) rotateY(0deg); }
+    }
+    @keyframes shimmer {
+      0%   { background-position: -200% center; }
+      100% { background-position:  200% center; }
+    }
+    @keyframes pulseRing {
+      0%   { transform: translate(-50%,-50%) scale(.5); opacity: .7; }
+      100% { transform: translate(-50%,-50%) scale(3.5); opacity: 0; }
+    }
+    @keyframes countUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes borderGrow {
+      from { width: 0; }
+      to   { width: 100%; }
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: perspective(900px) translateY(48px) rotateX(6deg);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.vis { opacity: 1; transform: perspective(900px) translateY(0) rotateX(0deg); }
+    .rev-l { opacity: 0; transform: translateX(-56px); transition: opacity .7s ease, transform .7s ease; }
+    .rev-l.vis { opacity: 1; transform: translateX(0); }
+    .rev-r { opacity: 0; transform: translateX(56px); transition: opacity .7s ease, transform .7s ease; }
+    .rev-r.vis { opacity: 1; transform: translateX(0); }
+    .d1 { transition-delay: .1s !important; }
+    .d2 { transition-delay: .2s !important; }
+    .d3 { transition-delay: .3s !important; }
+    .d4 { transition-delay: .4s !important; }
+
+    /* ── TOPBAR ── */
+    .topbar {
+      background: var(--dark-slate);
+      color: rgba(255,255,255,.7);
+      font-size: 12px;
+      display: flex; justify-content: flex-end;
+      gap: 24px; padding: 6px 48px;
+    }
+    .topbar a { color: rgba(255,255,255,.7); transition: color .2s; }
+    .topbar a:hover { color: var(--yellow); }
+
+    /* ── NAV ── */
+    nav {
+      background: rgba(255,255,255,.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 3px solid var(--maroon);
+      display: flex; align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      position: sticky; top: 0; z-index: 100;
+      transition: box-shadow .3s, background .3s;
+    }
+    nav.scrolled {
+      background: rgba(255,255,255,.88);
+      box-shadow: 0 4px 32px rgba(0,0,0,.12);
+    }
+    .logo {
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 0; text-decoration: none;
+    }
+    .logo-icon {
+      width: 56px; height: 56px; background: var(--maroon);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: transform .35s cubic-bezier(.34,1.56,.64,1);
+    }
+    .logo:hover .logo-icon { transform: scale(1.08) rotate(-3deg); }
+    .logo-icon svg { width: 42px; height: 42px; }
+    .logo-wordmark { line-height: 1.1; }
+    .logo-wordmark .l1 { font-size: 18px; color: var(--maroon); }
+    .logo-wordmark .l1 .t { font-weight: 400; }
+    .logo-wordmark .l1 .b { font-weight: 700; }
+    .logo-wordmark .l2 { font-size: 13px; color: var(--maroon); }
+    .logo-wordmark .l2 .t { font-weight: 400; }
+    .logo-wordmark .l2 .b { font-weight: 700; }
+    .logo-wordmark .l3 { font-size: 10px; color: var(--dark-gray); margin-top: 2px; }
+    .nav-links { display: flex; list-style: none; gap: 2px; }
+    .nav-links > li { position: relative; }
+    .nav-links > li > a {
+      display: block; padding: 22px 13px;
+      font-size: 13px; font-weight: 700; color: var(--dark-gray);
+      transition: color .2s;
+    }
+    .nav-links > li > a::after {
+      content: ''; position: absolute;
+      bottom: 0; left: 50%; right: 50%; height: 3px;
+      background: var(--maroon);
+      transition: left .3s, right .3s;
+    }
+    .nav-links > li > a:hover::after { left: 0; right: 0; }
+    .nav-links > li > a:hover { color: var(--maroon); }
+    .nav-cta {
+      background: var(--maroon); color: var(--white);
+      padding: 10px 22px; font-size: 13px; font-weight: 700;
+      display: flex; align-items: center;
+      position: relative; overflow: hidden;
+      transition: background .2s, box-shadow .2s;
+    }
+    .nav-cta::before {
+      content: ''; position: absolute;
+      top: 50%; left: 50%; width: 0; height: 0;
+      background: rgba(255,255,255,.18); border-radius: 50%;
+      transform: translate(-50%,-50%);
+      transition: width .45s, height .45s;
+    }
+    .nav-cta:hover::before { width: 220px; height: 220px; }
+    .nav-cta:hover { background: var(--maroon-dark); box-shadow: 0 4px 16px var(--maroon-glow); }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--maroon);
+      position: relative; overflow: hidden;
+      min-height: 600px; display: flex; align-items: center;
+    }
+    #hero-canvas {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+    }
+    /* floating shapes */
+    .hs { position: absolute; pointer-events: none; }
+    .hs1 {
+      width: 320px; height: 320px;
+      right: 4%; top: -60px;
+      background: rgba(237,197,27,.06);
+      border: 1px solid rgba(237,197,27,.15);
+      animation: morph 9s ease-in-out infinite, floatA 11s ease-in-out infinite;
+    }
+    .hs2 {
+      width: 180px; height: 180px;
+      left: 8%; bottom: 8%;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 50%;
+      animation: floatB 13s ease-in-out infinite;
+    }
+    .hs3 {
+      width: 90px; height: 90px;
+      right: 28%; top: 18%;
+      background: rgba(237,197,27,.08);
+      animation: floatC 8s ease-in-out infinite, spinSlow 22s linear infinite;
+    }
+    .hs4 {
+      width: 55px; height: 55px;
+      right: 18%; bottom: 22%;
+      border: 2px solid rgba(237,197,27,.3);
+      animation: floatA 7s ease-in-out infinite reverse, spinSlow 16s linear infinite reverse;
+    }
+
+    .hero-content {
+      position: relative; z-index: 2;
+      max-width: 1200px; margin: 0 auto;
+      padding: 80px 48px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 60px; align-items: center; width: 100%;
+    }
+    /* hero text stagger */
+    .hero-text > * { opacity: 0; transform: translateY(30px); }
+    .hero-text.go > *:nth-child(1) { animation: slideUp .7s .05s forwards ease-out; }
+    .hero-text.go > *:nth-child(2) { animation: slideUp .7s .2s  forwards ease-out; }
+    .hero-text.go > *:nth-child(3) { animation: slideUp .7s .35s forwards ease-out; }
+    .hero-text.go > *:nth-child(4) { animation: slideUp .7s .5s  forwards ease-out; }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(237,197,27,.4);
+      color: var(--yellow);
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 7px 16px; margin-bottom: 20px;
+      position: relative; overflow: hidden;
+    }
+    .hero-badge::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(237,197,27,.12), transparent);
+      background-size: 200% 100%;
+      animation: shimmer 3s infinite;
+    }
+    .hero-title {
+      font-size: clamp(28px, 4vw, 50px);
+      font-weight: 700; color: var(--white);
+      line-height: 1.12; margin-bottom: 20px;
+    }
+    .hero-title span { color: var(--yellow); text-shadow: 0 0 40px rgba(237,197,27,.4); }
+    .hero-desc {
+      font-size: 15px; color: rgba(255,255,255,.8);
+      line-height: 1.7; margin-bottom: 36px;
+    }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+    /* 3-D press buttons */
+    .btn-primary {
+      background: var(--yellow); color: #1a1a1a;
+      font-weight: 700; font-size: 14px;
+      padding: 14px 30px;
+      position: relative; display: inline-block;
+      transition: transform .15s, box-shadow .15s;
+      box-shadow: 4px 4px 0 #a98910;
+    }
+    .btn-primary:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 #a98910; }
+    .btn-primary:active { transform: translate(2px,2px); box-shadow: 0 0 0 #a98910; }
+    .btn-outline {
+      border: 2px solid rgba(255,255,255,.5);
+      color: var(--white); font-weight: 700; font-size: 14px;
+      padding: 12px 28px;
+      position: relative; overflow: hidden;
+      transition: border-color .2s, color .2s;
+    }
+    .btn-outline::before {
+      content: ''; position: absolute; inset: 0;
+      background: rgba(255,255,255,.08);
+      transform: translateX(-100%);
+      transition: transform .3s;
+    }
+    .btn-outline:hover::before { transform: translateX(0); }
+    .btn-outline:hover { border-color: var(--yellow); color: var(--yellow); }
+
+    /* glass card */
+    .hero-card {
+      background: rgba(255,255,255,.09);
+      border: 1px solid rgba(255,255,255,.18);
+      padding: 32px;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      opacity: 0;
+      animation: cardIn .9s .45s forwards ease-out;
+      transition: transform .3s, box-shadow .3s;
+    }
+    .hero-card:hover {
+      transform: perspective(1000px) translateY(-5px) rotateX(2deg);
+      box-shadow: 0 24px 64px rgba(0,0,0,.28);
+    }
+    .hero-card-title {
+      color: var(--yellow); font-size: 11px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      margin-bottom: 20px; padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255,255,255,.15);
+    }
+    .deadline-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+    .deadline-item {
+      display: flex; justify-content: space-between;
+      align-items: flex-start; gap: 12px;
+      padding: 8px 10px;
+      transition: background .2s;
+    }
+    .deadline-item:hover { background: rgba(255,255,255,.07); }
+    .deadline-program { color: var(--white); font-weight: 700; font-size: 14px; }
+    .deadline-desc { color: rgba(255,255,255,.5); font-size: 12px; margin-top: 2px; }
+    .deadline-date {
+      background: var(--yellow); color: #1a1a1a;
+      font-size: 11px; font-weight: 700;
+      padding: 4px 10px; white-space: nowrap; flex-shrink: 0;
+    }
+    .deadline-date.open { background: var(--teal); color: var(--white); }
+
+    /* ── ACCRED STRIP ── */
+    .accred-strip {
+      background: var(--dark-slate);
+      padding: 16px 48px;
+      display: flex; align-items: center; justify-content: center;
+      gap: 32px; flex-wrap: wrap;
+      position: relative; overflow: hidden;
+    }
+    .accred-strip::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,.04) 50%, transparent 100%);
+      background-size: 200% 100%;
+      animation: shimmer 5s infinite;
+    }
+    .accred-strip p { font-weight: 700; color: var(--white); font-size: 14px; position: relative; z-index: 1; }
+    .accred-badges { display: flex; gap: 14px; align-items: center; position: relative; z-index: 1; }
+    .accred-badge {
+      background: var(--maroon); color: var(--white);
+      font-size: 11px; font-weight: 700;
+      padding: 5px 14px; letter-spacing: 1px;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .accred-badge:hover { transform: translateY(-2px); box-shadow: 0 4px 14px var(--maroon-glow); }
+
+    /* ── STATS ── */
+    .stats {
+      background: var(--off-white);
+      padding: 72px 48px;
+      position: relative; overflow: hidden;
+    }
+    .stats::before {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(180,30,69,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(180,30,69,.04) 1px, transparent 1px);
+      background-size: 44px 44px;
+      transform: perspective(600px) rotateX(28deg);
+      transform-origin: top;
+    }
+    .stats-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4,1fr);
+      gap: 28px; position: relative;
+    }
+    .stat-item {
+      background: var(--white);
+      border-bottom: 4px solid var(--maroon);
+      padding: 32px 24px; text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,.06);
+      position: relative; overflow: hidden;
+      transition: transform .35s, box-shadow .35s;
+    }
+    .stat-item::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(180,30,69,.05) 0%, transparent 60%);
+    }
+    .stat-item:hover {
+      transform: translateY(-8px) perspective(600px) rotateX(4deg);
+      box-shadow: 0 16px 40px rgba(180,30,69,.15);
+    }
+    .stat-num {
+      font-size: 50px; font-weight: 700;
+      color: var(--maroon); line-height: 1;
+      margin-bottom: 8px; position: relative;
+    }
+    .stat-label { color: var(--dark-gray); font-size: 13px; line-height: 1.5; position: relative; }
+
+    /* ── SECTIONS ── */
+    section { padding: 88px 48px; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .section-label {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--maroon); margin-bottom: 10px;
+    }
+    .section-title {
+      font-size: clamp(22px,3vw,34px);
+      font-weight: 700; color: var(--dark-slate);
+      margin-bottom: 12px; line-height: 1.2;
+    }
+    .section-desc {
+      color: var(--dark-gray); font-size: 15px;
+      line-height: 1.7; max-width: 600px; margin-bottom: 48px;
+    }
+
+    /* ── PROGRAMS ── */
+    .programs { background: var(--white); }
+    .prog-cols { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; border: 1px solid var(--light-gray); }
+    .prog-col { display: flex; flex-direction: column; overflow: hidden; border-right: 1px solid var(--light-gray); transition: box-shadow .4s; }
+    .prog-col:last-child { border-right: none; }
+    .prog-col:hover { box-shadow: 0 24px 64px rgba(180,30,69,.18); }
+    .prog-photo { height: 260px; overflow: hidden; position: relative; }
+    .prog-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform .65s ease; }
+    .prog-col:hover .prog-photo img { transform: scale(1.06); }
+    .prog-body { padding: 28px 28px 32px; flex: 1; display: flex; flex-direction: column; }
+    .prog-col-title { font-size: 19px; font-weight: 700; color: var(--dark-slate); margin-bottom: 16px; padding-bottom: 14px; border-bottom: 3px solid var(--maroon); }
+    .prog-list { list-style: none; display: flex; flex-direction: column; gap: 0; margin-bottom: 24px; flex: 1; }
+    .prog-list li a { display: block; font-size: 14px; color: var(--dark-gray); padding: 9px 0 9px 16px; border-bottom: 1px solid rgba(0,0,0,.07); position: relative; transition: color .2s, padding-left .2s; }
+    .prog-list li:last-child a { border-bottom: none; }
+    .prog-list li a::before { content: ''; position: absolute; left: 4px; top: 50%; transform: translateY(-50%); width: 5px; height: 5px; background: var(--maroon); border-radius: 50%; }
+    .prog-list li a:hover { color: var(--maroon); padding-left: 22px; }
+    .prog-more { font-size: 13px; font-weight: 700; color: var(--maroon); display: inline-flex; align-items: center; gap: 6px; transition: gap .2s; margin-top: auto; }
+    .prog-more::after { content: '→'; }
+    .prog-more:hover { gap: 12px; }
+    .programs-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 28px; }
+    .tilt-card {
+      transform-style: preserve-3d;
+      will-change: transform;
+      transition: box-shadow .4s ease;
+    }
+    .tilt-card:hover { box-shadow: 0 24px 64px rgba(180,30,69,.2); }
+    .program-card { border: 1px solid var(--light-gray); overflow: hidden; }
+    .program-card-header {
+      background: var(--maroon);
+      padding: 28px 28px 22px;
+      position: relative; overflow: hidden;
+    }
+    .program-card-header::after {
+      content: ''; position: absolute;
+      top: -60%; left: -50%;
+      width: 200%; height: 200%;
+      background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,.07) 50%, transparent 70%);
+      transform: translateX(-100%);
+      transition: transform .6s;
+    }
+    .program-card:hover .program-card-header::after { transform: translateX(100%); }
+    .program-tag {
+      background: var(--yellow); color: #1a1a1a;
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 3px 10px; display: inline-block; margin-bottom: 12px;
+    }
+    .program-name { color: var(--white); font-size: 22px; font-weight: 700; line-height: 1.15; margin-bottom: 4px; }
+    .program-full { color: rgba(255,255,255,.6); font-size: 12px; }
+    .program-body { padding: 24px 28px; }
+    .program-desc { font-size: 13.5px; color: var(--dark-gray); line-height: 1.65; margin-bottom: 20px; }
+    .program-meta { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 20px; }
+    .meta-item { font-size: 12px; color: var(--dark-slate); font-weight: 700; }
+    .meta-item span { color: var(--dark-gray); font-weight: 400; }
+    .program-link {
+      font-size: 13px; font-weight: 700; color: var(--maroon);
+      display: inline-flex; align-items: center; gap: 6px;
+      transition: gap .2s, color .2s;
+    }
+    .program-link:hover { gap: 12px; color: var(--maroon-dark); }
+    .program-link::after { content: '→'; }
+
+    /* ── EXEC ED ── */
+    .exec { background: var(--off-white); position: relative; overflow: hidden; }
+    .exec::before {
+      content: ''; position: absolute;
+      top: 0; right: 0; width: 38%; height: 100%;
+      background: linear-gradient(135deg, transparent 0%, rgba(180,30,69,.04) 100%);
+      clip-path: polygon(18% 0%, 100% 0%, 100% 100%, 0% 100%);
+    }
+    .exec-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; position: relative; }
+    .exec-card {
+      background: var(--white);
+      border: 1px solid var(--light-gray);
+      border-top: 4px solid var(--maroon);
+      padding: 28px 24px;
+      position: relative; overflow: hidden;
+      transition: box-shadow .3s;
+    }
+    .exec-card::after {
+      content: ''; position: absolute;
+      bottom: 0; left: 0; width: 0; height: 3px;
+      background: var(--yellow);
+      transition: width .4s;
+    }
+    .exec-card:hover::after { width: 100%; }
+    .exec-card:hover { box-shadow: 0 8px 32px rgba(180,30,69,.12); }
+    .exec-icon {
+      width: 48px; height: 48px;
+      background: var(--maroon);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 16px; font-size: 22px;
+      transition: transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .3s;
+    }
+    .exec-card:hover .exec-icon { transform: scale(1.15) rotate(-6deg); box-shadow: 0 6px 20px var(--maroon-glow); }
+    .exec-name { font-size: 15px; font-weight: 700; color: var(--dark-slate); margin-bottom: 10px; }
+    .exec-desc { font-size: 13px; color: var(--dark-gray); line-height: 1.6; }
+
+    /* ── NEWS ── */
+    .news { background: var(--white); }
+    .news-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 28px; }
+    .news-card {
+      border: 1px solid var(--light-gray); overflow: hidden;
+      transition: box-shadow .3s, transform .3s;
+    }
+    .news-card:hover { box-shadow: 0 16px 48px rgba(0,0,0,.12); transform: translateY(-7px); }
+    .news-img { height: 200px; overflow: hidden; position: relative; }
+    .news-img::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.3), transparent);
+      pointer-events: none;
+    }
+    .news-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .55s; }
+    .news-card:hover .news-img img { transform: scale(1.08); }
+    .news-body { padding: 22px; }
+    .news-tag {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--maroon); margin-bottom: 10px;
+    }
+    .news-title {
+      font-size: 15px; font-weight: 700; color: var(--dark-slate);
+      line-height: 1.4; margin-bottom: 12px;
+      transition: color .2s;
+    }
+    .news-card:hover .news-title { color: var(--maroon); }
+    .news-meta { font-size: 12px; color: #999; }
+
+    /* ── EXPERT EDGE ── */
+    .expert { background: var(--off-white); }
+    .expert-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 28px; }
+    .expert-card { background: var(--white); border: 1px solid var(--light-gray); overflow: hidden; transition: box-shadow .3s, transform .3s; }
+    .expert-card:hover { box-shadow: 0 16px 48px rgba(0,0,0,.12); transform: translateY(-7px); }
+    .expert-img { height: 210px; overflow: hidden; }
+    .expert-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .55s; }
+    .expert-card:hover .expert-img img { transform: scale(1.08); }
+    .expert-body { padding: 22px; }
+    .expert-date { font-size: 11px; color: #aaa; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+    .expert-title { font-size: 15px; font-weight: 700; color: var(--dark-slate); line-height: 1.4; margin-bottom: 14px; transition: color .2s; }
+    .expert-card:hover .expert-title { color: var(--maroon); }
+    .expert-link { font-size: 13px; font-weight: 700; color: var(--maroon); display: inline-flex; align-items: center; gap: 6px; transition: gap .2s; }
+    .expert-link::after { content: '→'; }
+    .expert-link:hover { gap: 12px; }
+
+    /* ── OPEN DAY CTA ── */
+    .openday {
+      background: var(--maroon);
+      text-align: center; padding: 100px 48px;
+      position: relative; overflow: hidden;
+    }
+    .od-ring {
+      position: absolute; top: 50%; left: 50%;
+      width: 280px; height: 280px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.08);
+      animation: pulseRing 4.5s ease-out infinite;
+      pointer-events: none;
+    }
+    .od-ring:nth-child(2) { animation-delay: 1.1s; }
+    .od-ring:nth-child(3) { animation-delay: 2.2s; }
+    .od-ring:nth-child(4) { animation-delay: 3.3s; }
+    .openday-inner { max-width: 680px; margin: 0 auto; position: relative; z-index: 1; }
+    .openday-tag {
+      display: inline-block;
+      background: var(--yellow); color: #1a1a1a;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      padding: 5px 16px; margin-bottom: 22px;
+    }
+    .openday-title {
+      font-size: clamp(28px,4vw,44px); font-weight: 700;
+      color: var(--white); margin-bottom: 14px; line-height: 1.2;
+    }
+    .openday-title span { color: var(--yellow); text-shadow: 0 0 30px rgba(237,197,27,.5); }
+    .openday-desc { color: rgba(255,255,255,.8); font-size: 16px; margin-bottom: 40px; line-height: 1.7; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--dark-slate); color: rgba(255,255,255,.65); }
+    .footer-main {
+      max-width: 1200px; margin: 0 auto;
+      padding: 60px 48px 40px;
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px;
+    }
+    .footer-logo-icon {
+      width: 48px; height: 48px; background: var(--maroon);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 14px;
+      transition: transform .35s cubic-bezier(.34,1.56,.64,1);
+      cursor: pointer;
+    }
+    .footer-logo-icon:hover { transform: scale(1.12) rotate(-4deg); }
+    .footer-logo-icon svg { width: 36px; height: 36px; }
+    .fbname { font-size: 15px; font-weight: 700; color: var(--white); }
+    .fbname .t { font-weight: 400; }
+    .fbsub { font-size: 11px; margin-bottom: 14px; color: rgba(255,255,255,.45); }
+    .fbdesc { font-size: 13px; line-height: 1.7; margin-bottom: 20px; }
+    .fbaddr { font-size: 12px; line-height: 1.85; }
+    .fbaddr strong { color: var(--white); }
+    .fc-title { color: var(--white); font-size: 13px; font-weight: 700; margin-bottom: 18px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col a {
+      font-size: 13px; color: rgba(255,255,255,.55);
+      display: block; transition: color .2s, padding-left .2s;
+    }
+    .footer-col a:hover { color: var(--yellow); padding-left: 6px; }
+    .socials { display: flex; gap: 10px; margin-top: 20px; }
+    .social-btn {
+      width: 36px; height: 36px;
+      background: rgba(255,255,255,.1);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 700; color: var(--white);
+      transition: background .2s, transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .2s;
+    }
+    .social-btn:hover { background: var(--maroon); transform: translateY(-4px); box-shadow: 0 4px 14px var(--maroon-glow); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.1);
+      max-width: 1200px; margin: 0 auto;
+      padding: 20px 48px;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .footer-bottom p { font-size: 12px; }
+    .fbl { display: flex; gap: 20px; }
+    .fbl a { font-size: 12px; color: rgba(255,255,255,.4); transition: color .2s; }
+    .fbl a:hover { color: var(--yellow); }
+
+    /* ── SCROLL TO TOP ── */
+    #scrollTop {
+      position: fixed; bottom: 32px; right: 32px;
+      width: 44px; height: 44px;
+      background: var(--maroon); color: var(--white);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; cursor: pointer; border: none;
+      opacity: 0; transform: translateY(16px);
+      transition: opacity .3s, transform .3s, box-shadow .2s;
+      z-index: 200;
+    }
+    #scrollTop.vis { opacity: 1; transform: translateY(0); }
+    #scrollTop:hover { box-shadow: 0 4px 20px var(--maroon-glow); transform: translateY(-4px); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav,.topbar,section,.stats,.openday,.accred-strip { padding-left: 24px; padding-right: 24px; }
+      .hero-content { grid-template-columns: 1fr; gap: 40px; padding: 60px 24px; }
+      .stats-inner { grid-template-columns: repeat(2,1fr); }
+      .prog-cols,.programs-grid,.exec-grid,.news-grid,.expert-grid { grid-template-columns: 1fr; }
+      .prog-col { border-right: none; border-bottom: 1px solid var(--light-gray); }
+      .prog-col:last-child { border-bottom: none; }
+      .footer-main { grid-template-columns: 1fr 1fr; padding: 48px 24px 32px; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="#">ASB Buzz</a><a href="#">Stories</a>
+  <a href="#">Events</a><a href="#">Careers</a><a href="#">Media</a>
+</div>
+
+<nav id="main-nav">
+  <a href="#" class="logo">
+    <div class="logo-icon">
+      <svg viewBox="0 0 42 42" xmlns="http://www.w3.org/2000/svg" fill="none">
+        <rect x="5"  y="14" width="6" height="22" fill="white" opacity=".92"/>
+        <rect x="6"  y="10" width="4" height="5"  fill="white" opacity=".92"/>
+        <rect x="6.5" y="7" width="3" height="4" fill="white" opacity=".92"/>
+        <rect x="7"  y="4"  width="2" height="4"  fill="white"/>
+        <rect x="11" y="22" width="6" height="2.5" fill="white" opacity=".82"/>
+        <rect x="17" y="14" width="6" height="22" fill="white" opacity=".92"/>
+        <rect x="18" y="10" width="4" height="5"  fill="white" opacity=".92"/>
+        <rect x="18.5" y="7" width="3" height="4" fill="white" opacity=".92"/>
+        <rect x="19" y="4"  width="2" height="4"  fill="white"/>
+        <circle cx="30" cy="8" r="5" stroke="white" stroke-width="1.2" fill="none"/>
+        <line x1="30" y1="3"  x2="30" y2="13" stroke="white" stroke-width=".8"/>
+        <line x1="25" y1="8"  x2="35" y2="8"  stroke="white" stroke-width=".8"/>
+        <ellipse cx="30" cy="8" rx="2.5" ry="5" stroke="white" stroke-width=".8" fill="none"/>
+      </svg>
+    </div>
+    <div class="logo-wordmark">
+      <div class="l1"><span class="t">ASIA</span><span class="b">School</span></div>
+      <div class="l2"><span class="t">of </span><span class="b">Business</span></div>
+      <div class="l3">in collaboration with MIT Sloan Management</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#">About</a></li>
+    <li><a href="#">Academics</a></li>
+    <li><a href="#">Faculty &amp; Research</a></li>
+    <li><a href="#">Executive Education</a></li>
+    <li><a href="#">Alumni</a></li>
+    <li><a href="#">Corporate</a></li>
+  </ul>
+  <a href="#" class="nav-cta">Get in Touch</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero" id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hs hs1"></div>
+  <div class="hs hs2"></div>
+  <div class="hs hs3"></div>
+  <div class="hs hs4"></div>
+  <div class="hero-content">
+    <div class="hero-text" id="hero-text">
+      <div class="hero-badge">★ &nbsp; Open Day — April 2026</div>
+      <h1 class="hero-title">Shape the Future of<br/><span>Asian Business</span><br/>Leadership</h1>
+      <p class="hero-desc">Asia School of Business is an AACSB-accredited institution in Kuala Lumpur, established by Bank Negara Malaysia in collaboration with MIT Sloan. Extraordinary and Unconventional.</p>
+      <div class="hero-actions">
+        <a href="#" class="btn-primary">Attend Open Day</a>
+        <a href="#" class="btn-outline">Explore Programs</a>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-card-title">Upcoming Application Deadlines</div>
+      <ul class="deadline-list">
+        <li class="deadline-item">
+          <div><div class="deadline-program">MBA Full-Time</div><div class="deadline-desc">Round 4 — Final intake</div></div>
+          <div class="deadline-date">May 2026</div>
+        </li>
+        <li class="deadline-item">
+          <div><div class="deadline-program">Executive MBA</div><div class="deadline-desc">Round 1 applications open</div></div>
+          <div class="deadline-date">Jun 2026</div>
+        </li>
+        <li class="deadline-item">
+          <div><div class="deadline-program">Master in Central Banking</div><div class="deadline-desc">Now accepting applications</div></div>
+          <div class="deadline-date open">Open</div>
+        </li>
+        <li class="deadline-item">
+          <div><div class="deadline-program">PhD in Management</div><div class="deadline-desc">Information available</div></div>
+          <div class="deadline-date open">Open</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ACCRED STRIP -->
+<div class="accred-strip reveal">
+  <p>AACSB Accredited — World's Top 6% of Business Schools</p>
+  <div class="accred-badges">
+    <span class="accred-badge">AACSB</span>
+    <span class="accred-badge">AAPBS</span>
+    <span class="accred-badge">EFMD</span>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stats-inner" id="stats-inner">
+    <div class="stat-item reveal d1">
+      <div class="stat-num" data-target="40" data-suffix="+">40+</div>
+      <div class="stat-label">Nationalities represented</div>
+    </div>
+    <div class="stat-item reveal d2">
+      <div class="stat-num" data-target="95" data-suffix="%">95%</div>
+      <div class="stat-label">Employment within 3 months</div>
+    </div>
+    <div class="stat-item reveal d3">
+      <div class="stat-num" data-target="6" data-suffix="%" data-prefix="Top ">Top 6%</div>
+      <div class="stat-label">Global business schools (AACSB)</div>
+    </div>
+    <div class="stat-item reveal d4">
+      <div class="stat-num">MIT</div>
+      <div class="stat-label">Sloan collaboration since founding</div>
+    </div>
+  </div>
+</div>
+
+<!-- PROGRAMS -->
+<section class="programs">
+  <div class="section-inner">
+    <div class="section-label reveal">Our Offerings</div>
+    <h2 class="section-title reveal d1">Programs, Education &amp; Research</h2>
+    <p class="section-desc reveal d2">From degree programs to executive learning and world-class research — everything ASB offers in one place.</p>
+    <div class="prog-cols">
+      <div class="prog-col tilt-card reveal d1">
+        <div class="prog-photo">
+          <img src="https://asb.edu.my/wp-content/uploads/2024/03/asb-academic-.jpg" alt="Academic Programs at ASB" loading="lazy" />
+        </div>
+        <div class="prog-body">
+          <div class="prog-col-title">Academic Programs</div>
+          <ul class="prog-list">
+            <li><a href="#">ACE (Micro-credentials)</a></li>
+            <li><a href="#">MBA</a></li>
+            <li><a href="#">Executive MBA</a></li>
+            <li><a href="#">Master in Central Banking</a></li>
+            <li><a href="#">PhD in Management</a></li>
+          </ul>
+          <a href="#" class="prog-more">Explore Programs</a>
+        </div>
+      </div>
+      <div class="prog-col tilt-card reveal d2">
+        <div class="prog-photo">
+          <img src="https://asb.edu.my/wp-content/uploads/2022/12/EE_Executive-Education.jpg" alt="Executive Education at ASB" loading="lazy" />
+        </div>
+        <div class="prog-body">
+          <div class="prog-col-title">Executive Education</div>
+          <ul class="prog-list">
+            <li><a href="#">Accelerate@ASB</a></li>
+            <li><a href="#">Corporate Governance</a></li>
+            <li><a href="#">Leadership &amp; Management</a></li>
+            <li><a href="#">Sustainability</a></li>
+            <li><a href="#">Technology</a></li>
+          </ul>
+          <a href="#" class="prog-more">View Programmes</a>
+        </div>
+      </div>
+      <div class="prog-col tilt-card reveal d3">
+        <div class="prog-photo">
+          <img src="https://asb.edu.my/wp-content/uploads/2024/11/research_center.jpg" alt="Research Centers at ASB" loading="lazy" />
+        </div>
+        <div class="prog-body">
+          <div class="prog-col-title">Research Centers</div>
+          <ul class="prog-list">
+            <li><a href="#">ASB Research Centre (ARC)</a></li>
+            <li><a href="#">CTSS</a></li>
+            <li><a href="#">CSS</a></li>
+            <li><a href="#">TIACOE</a></li>
+            <li><a href="#">IEC</a></li>
+            <li><a href="#">KMC</a></li>
+            <li><a href="#">RYSE</a></li>
+          </ul>
+          <a href="#" class="prog-more">Our Research</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXEC ED -->
+<section class="exec">
+  <div class="section-inner">
+    <div class="section-label reveal">Executive Education</div>
+    <h2 class="section-title reveal d1">Transform Your Organization</h2>
+    <p class="section-desc reveal d2">Short, intensive programs for senior executives tackling the defining challenges of our time.</p>
+    <div class="exec-grid">
+      <div class="exec-card tilt-card reveal d1">
+        <div class="exec-icon" style="font-size:15px;font-weight:700;letter-spacing:1px;">ACC</div>
+        <div class="exec-name">Accelerate@ASB</div>
+        <p class="exec-desc">A flagship program fast-tracking high-potential leaders for senior executive roles across industries.</p>
+      </div>
+      <div class="exec-card tilt-card reveal d2">
+        <div class="exec-icon" style="font-size:15px;font-weight:700;letter-spacing:1px;">GOV</div>
+        <div class="exec-name">Corporate Governance</div>
+        <p class="exec-desc">Strengthen board effectiveness, fiduciary responsibility, and governance frameworks for today's complex organizations.</p>
+      </div>
+      <div class="exec-card tilt-card reveal d3">
+        <div class="exec-icon" style="font-size:15px;font-weight:700;letter-spacing:1px;">LDR</div>
+        <div class="exec-name">Leadership &amp; Management</div>
+        <p class="exec-desc">Develop adaptive leadership skills for complex, fast-changing environments with MIT Sloan-informed curriculum.</p>
+      </div>
+      <div class="exec-card tilt-card reveal d4">
+        <div class="exec-icon" style="font-size:15px;font-weight:700;letter-spacing:1px;">ESG</div>
+        <div class="exec-name">Sustainability</div>
+        <p class="exec-desc">Integrate ESG strategy and sustainable finance into core business and investment decisions.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MEDIA -->
+<section class="news">
+  <div class="section-inner">
+    <div class="section-label reveal">Media</div>
+    <h2 class="section-title reveal d1">ASB in the News</h2>
+    <p class="section-desc reveal d2">The latest coverage and commentary featuring Asia School of Business faculty, alumni, and leadership.</p>
+    <div class="news-grid">
+      <div class="news-card tilt-card reveal d1">
+        <div class="news-img">
+          <img src="https://asb.edu.my/wp-content/uploads/2026/03/Malaysia-perlu-kekal-stabil-tarik-pelaburan-berkualiti-...-Tengku-Zafrul.jpeg" alt="Malaysia perlu kekal stabil" loading="lazy" />
+        </div>
+        <div class="news-body">
+          <div class="news-tag">Malaysia Bangkit</div>
+          <div class="news-title">Malaysia perlu kekal stabil tarik pelaburan berkualiti – Tengku Zafrul</div>
+          <div class="news-meta">14 March 2026</div>
+        </div>
+      </div>
+      <div class="news-card tilt-card reveal d2">
+        <div class="news-img">
+          <img src="https://asb.edu.my/wp-content/uploads/2026/03/Lim-Hock-San.jpg" alt="Lim Hock San" loading="lazy" />
+        </div>
+        <div class="news-body">
+          <div class="news-tag">Business Times</div>
+          <div class="news-title">LBS' Lim Hock San Reflects on Entrepreneurial Journey and Family Legacy</div>
+          <div class="news-meta">12 March 2026</div>
+        </div>
+      </div>
+      <div class="news-card tilt-card reveal d3">
+        <div class="news-img">
+          <img src="https://asb.edu.my/wp-content/uploads/2026/03/Ketabahan-Integriti-Visi-Jangka-Panjang-Rahsia-LBS-Bertahan-65-Tahun.jpg" alt="Ketabahan Integriti Visi" loading="lazy" />
+        </div>
+        <div class="news-body">
+          <div class="news-tag">Berita Harian</div>
+          <div class="news-title">Ketabahan, Integriti, Visi Jangka Panjang Rahsia LBS Bertahan 65 Tahun</div>
+          <div class="news-meta">12 March 2026</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERT EDGE -->
+<section class="expert">
+  <div class="section-inner">
+    <div class="section-label reveal">Expert Edge</div>
+    <h2 class="section-title reveal d1">Insights from the ASB Community</h2>
+    <p class="section-desc reveal d2">Perspectives from our faculty, students, and alumni on leadership, business, and the future of Asia.</p>
+    <div class="expert-grid">
+      <div class="expert-card tilt-card reveal d1">
+        <div class="expert-img">
+          <img src="https://asb.edu.my/wp-content/uploads/2026/04/daphne-iven.jpeg" alt="Work Family EMBA" loading="lazy" />
+        </div>
+        <div class="expert-body">
+          <div class="expert-date">11 April 2026</div>
+          <div class="expert-title">Work. Family. EMBA. Can it Work?</div>
+          <a href="#" class="expert-link">Read More</a>
+        </div>
+      </div>
+      <div class="expert-card tilt-card reveal d2">
+        <div class="expert-img">
+          <img src="https://asb.edu.my/wp-content/uploads/2026/03/0330_Alumni-IEC_Thomas.png" alt="MBA Career Support" loading="lazy" />
+        </div>
+        <div class="expert-body">
+          <div class="expert-date">30 March 2026</div>
+          <div class="expert-title">How MBA Career Support Helped Kickstart My Entrepreneurship Journey</div>
+          <a href="#" class="expert-link">Read More</a>
+        </div>
+      </div>
+      <div class="expert-card tilt-card reveal d3">
+        <div class="expert-img">
+          <img src="https://asb.edu.my/wp-content/uploads/2025/11/EE_Thought-Leadership-Article-Five-Step-Ups-for-Boosting-Board-Performance-Self-Awareness-2-min.png" alt="Board Performance" loading="lazy" />
+        </div>
+        <div class="expert-body">
+          <div class="expert-date">3 November 2025</div>
+          <div class="expert-title">Five Step-Ups for Boosting Board Performance Self-Awareness</div>
+          <a href="#" class="expert-link">Read More</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OPEN DAY CTA -->
+<div class="openday">
+  <div class="od-ring"></div><div class="od-ring"></div>
+  <div class="od-ring"></div><div class="od-ring"></div>
+  <div class="openday-inner reveal">
+    <div class="openday-tag">Join Us</div>
+    <h2 class="openday-title">Attend Our <span>Open Day</span><br/>April 2026</h2>
+    <p class="openday-desc">Meet faculty, current students, and alumni. Experience ASB's unique learning culture and discover which program is right for you.</p>
+    <a href="#" class="btn-primary" style="font-size:15px;padding:15px 36px;display:inline-block;">Register Now &rarr;</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-main">
+    <div>
+      <div class="footer-logo-icon">
+        <svg viewBox="0 0 42 42" xmlns="http://www.w3.org/2000/svg" fill="none">
+          <rect x="5"  y="14" width="6" height="22" fill="white" opacity=".9"/>
+          <rect x="6"  y="10" width="4" height="5"  fill="white" opacity=".9"/>
+          <rect x="6.5" y="7" width="3" height="4" fill="white" opacity=".9"/>
+          <rect x="7"  y="4"  width="2" height="4"  fill="white"/>
+          <rect x="11" y="22" width="6" height="2.5" fill="white" opacity=".82"/>
+          <rect x="17" y="14" width="6" height="22" fill="white" opacity=".9"/>
+          <rect x="18" y="10" width="4" height="5"  fill="white" opacity=".9"/>
+          <rect x="18.5" y="7" width="3" height="4" fill="white" opacity=".9"/>
+          <rect x="19" y="4"  width="2" height="4"  fill="white"/>
+          <circle cx="30" cy="8" r="5" stroke="white" stroke-width="1.2" fill="none"/>
+          <line x1="30" y1="3" x2="30" y2="13" stroke="white" stroke-width=".8"/>
+          <line x1="25" y1="8" x2="35" y2="8"  stroke="white" stroke-width=".8"/>
+          <ellipse cx="30" cy="8" rx="2.5" ry="5" stroke="white" stroke-width=".8" fill="none"/>
+        </svg>
+      </div>
+      <div class="fbname"><span class="t">ASIA</span><strong>School of Business</strong></div>
+      <div class="fbsub">in collaboration with MIT Sloan Management</div>
+      <p class="fbdesc">Extraordinary and Unconventional — developing transformative leaders for Asia and the world.</p>
+      <div class="fbaddr">
+        <strong>Sasana Kijang, Bank Negara Malaysia</strong><br/>
+        2, Jalan Dato' Onn, 50480<br/>
+        Kuala Lumpur, Malaysia<br/>
+        enquiry@asb.edu.my
+      </div>
+      <div class="socials">
+        <a href="#" class="social-btn">in</a>
+        <a href="#" class="social-btn">f</a>
+        <a href="#" class="social-btn">ig</a>
+        <a href="#" class="social-btn">yt</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <div class="fc-title">Programs</div>
+      <ul>
+        <li><a href="#">MBA</a></li>
+        <li><a href="#">Executive MBA</a></li>
+        <li><a href="#">Master in Central Banking</a></li>
+        <li><a href="#">PhD in Management</a></li>
+        <li><a href="#">ACE Micro-credentials</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="fc-title">About ASB</div>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Faculty &amp; Research</a></li>
+        <li><a href="#">Research Centers</a></li>
+        <li><a href="#">Accreditation</a></li>
+        <li><a href="#">News &amp; Events</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="fc-title">Connect</div>
+      <ul>
+        <li><a href="#">Get in Touch</a></li>
+        <li><a href="#">Alumni Network</a></li>
+        <li><a href="#">Corporate Partnerships</a></li>
+        <li><a href="#">Careers at ASB</a></li>
+        <li><a href="#">Media Enquiries</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Asia School of Business. All rights reserved.</p>
+    <div class="fbl">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Use</a>
+      <a href="#">Cookie Policy</a>
+    </div>
+  </div>
+</footer>
+
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// ── NAV SCROLL GLASS ──────────────────────────────────────────────
+const nav = document.getElementById('main-nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+  document.getElementById('scrollTop').classList.toggle('vis', window.scrollY > 400);
+}, { passive: true });
+
+// ── HERO TEXT STAGGER ─────────────────────────────────────────────
+window.addEventListener('load', () => {
+  document.getElementById('hero-text').classList.add('go');
+});
+
+// ── CANVAS PARTICLE NETWORK ───────────────────────────────────────
+(function () {
+  const canvas = document.getElementById('hero-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, mouse = { x: -9999, y: -9999 };
+
+  function resize() {
+    W = canvas.width  = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+  window.addEventListener('resize', resize, { passive: true });
+  resize();
+
+  canvas.parentElement.addEventListener('mousemove', e => {
+    const r = canvas.getBoundingClientRect();
+    mouse.x = e.clientX - r.left;
+    mouse.y = e.clientY - r.top;
+  }, { passive: true });
+  canvas.parentElement.addEventListener('mouseleave', () => {
+    mouse.x = -9999; mouse.y = -9999;
+  });
+
+  const N = 110;
+  const pts = Array.from({ length: N }, () => ({
+    x: Math.random() * 1000,
+    y: Math.random() * 600,
+    z: Math.random(),           // depth 0=far 1=near
+    vx: (Math.random() - .5) * .35,
+    vy: (Math.random() - .5) * .35,
+    gold: Math.random() > .55
+  }));
+
+  function draw() {
+    if (!W) { requestAnimationFrame(draw); return; }
+    ctx.clearRect(0, 0, W, H);
+
+    // scale positions to canvas size
+    const scaleX = W / 1000, scaleY = H / 600;
+
+    // update
+    pts.forEach(p => {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0 || p.x > 1000) p.vx *= -1;
+      if (p.y < 0 || p.y > 600)  p.vy *= -1;
+    });
+
+    // connections
+    for (let i = 0; i < N; i++) {
+      for (let j = i + 1; j < N; j++) {
+        const a = pts[i], b = pts[j];
+        const dx = (a.x - b.x) * scaleX;
+        const dy = (a.y - b.y) * scaleY;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 130) {
+          const alpha = (1 - dist / 130) * ((a.z + b.z) / 2) * .28;
+          ctx.beginPath();
+          ctx.moveTo(a.x * scaleX, a.y * scaleY);
+          ctx.lineTo(b.x * scaleX, b.y * scaleY);
+          ctx.strokeStyle = `rgba(237,197,27,${alpha})`;
+          ctx.lineWidth = .6;
+          ctx.stroke();
+        }
+      }
+    }
+
+    // dots + mouse repulsion glow
+    pts.forEach(p => {
+      const px = p.x * scaleX, py = p.y * scaleY;
+      const mdx = px - mouse.x, mdy = py - mouse.y;
+      const md  = Math.sqrt(mdx * mdx + mdy * mdy);
+      const nearMouse = md < 100;
+
+      const r = (nearMouse ? 3 : 1.2) + p.z * 2.2;
+      const op = nearMouse ? .9 : .15 + p.z * .55;
+
+      ctx.beginPath();
+      ctx.arc(px, py, r, 0, Math.PI * 2);
+
+      if (nearMouse) {
+        const g = ctx.createRadialGradient(px, py, 0, px, py, r * 3);
+        g.addColorStop(0, p.gold ? 'rgba(237,197,27,.9)'  : 'rgba(255,255,255,.9)');
+        g.addColorStop(1, p.gold ? 'rgba(237,197,27,0)'   : 'rgba(255,255,255,0)');
+        ctx.fillStyle = g;
+      } else {
+        ctx.fillStyle = p.gold
+          ? `rgba(237,197,27,${op})`
+          : `rgba(255,255,255,${op})`;
+      }
+      ctx.fill();
+    });
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ── HERO PARALLAX ─────────────────────────────────────────────────
+const heroContent = document.querySelector('.hero-content');
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  if (y < window.innerHeight && heroContent) {
+    heroContent.style.transform = `translateY(${y * .28}px)`;
+  }
+}, { passive: true });
+
+// ── 3-D CARD TILT ─────────────────────────────────────────────────
+document.querySelectorAll('.tilt-card').forEach(card => {
+  let raf;
+  card.addEventListener('mousemove', e => {
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(() => {
+      const r   = card.getBoundingClientRect();
+      const x   = (e.clientX - r.left)  / r.width  - .5;
+      const y   = (e.clientY - r.top)   / r.height - .5;
+      const rY  =  x * 14;
+      const rX  = -y * 14;
+      card.style.transition = 'box-shadow .4s';
+      card.style.transform  =
+        `perspective(800px) rotateY(${rY}deg) rotateX(${rX}deg) translateZ(14px)`;
+    });
+  });
+  card.addEventListener('mouseleave', () => {
+    cancelAnimationFrame(raf);
+    card.style.transition = 'transform .6s ease, box-shadow .4s';
+    card.style.transform  = 'perspective(800px) rotateY(0deg) rotateX(0deg) translateZ(0)';
+  });
+});
+
+// ── SCROLL REVEAL ─────────────────────────────────────────────────
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
+}, { threshold: .12 });
+document.querySelectorAll('.reveal, .rev-l, .rev-r').forEach(el => revealObs.observe(el));
+
+// ── STATS COUNTER ─────────────────────────────────────────────────
+function runCounter(el) {
+  const target = parseInt(el.dataset.target);
+  const suffix = el.dataset.suffix || '';
+  const prefix = el.dataset.prefix || '';
+  if (!target) return;
+  const start = Date.now();
+  const dur   = 1800;
+  const tick  = () => {
+    const p = Math.min((Date.now() - start) / dur, 1);
+    const ease = 1 - Math.pow(1 - p, 3);
+    el.textContent = prefix + Math.round(target * ease) + suffix;
+    if (p < 1) requestAnimationFrame(tick);
+  };
+  tick();
+}
+
+const statsObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.stat-num[data-target]').forEach(runCounter);
+      statsObs.unobserve(e.target);
+    }
+  });
+}, { threshold: .25 });
+const si = document.getElementById('stats-inner');
+if (si) statsObs.observe(si);
+
+// ── MAGNETIC BUTTONS ──────────────────────────────────────────────
+document.querySelectorAll('.btn-primary, .btn-outline').forEach(btn => {
+  btn.addEventListener('mousemove', e => {
+    const r  = btn.getBoundingClientRect();
+    const x  = e.clientX - r.left - r.width  / 2;
+    const y  = e.clientY - r.top  - r.height / 2;
+    btn.style.transform = `translate(${x * .15}px, ${y * .15}px)`;
+  });
+  btn.addEventListener('mouseleave', () => {
+    btn.style.transform = '';
+    btn.style.transition = 'transform .4s ease';
+  });
+});
+</script>
+</body>
+</html>
